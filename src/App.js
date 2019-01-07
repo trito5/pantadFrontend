@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppHeader from "./common/AppHeader";
+import { Route } from "react-router-dom";
+import SchoolClass from "./schoolclass/SchoolClass";
+import PantLista from './pant/PantLista';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: null,
+      isAuthenticated: false,
+      isLoading: false
+    }
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <AppHeader />
+        <Route exact path="/" component={PantLista} />
+        <Route path="/regclass" component={SchoolClass} />
       </div>
     );
   }
