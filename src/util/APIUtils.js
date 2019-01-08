@@ -1,16 +1,17 @@
-import { API_BASE_URL, ACCESS_TOKEN } from "../constants";
+import { API_BASE_URL, ACCESS_TOKEN, GOOGLE_API_KEY2 } from "../constants";
 
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     })
 
-    // if (localStorage.getItem(ACCESS_TOKEN)) {
-    //     headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
-    // }
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
 
     const defaults = { headers: headers };
-    options = Object.assign({}, defaults, options);
+    options = Object.assign({}, options);
+    // Lägg till "defaults," efter test
 
     return fetch(options.url, options)
         .then(response =>
@@ -38,10 +39,17 @@ export function newPant(pantRequest) {
     });
 }
 
+export function getGpsFromAddress(address) {
+    return request({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + GOOGLE_API_KEY2,
+        method: 'GET'
+    })
+}
+
 export function collectPant(pantId) {
     return request({
         url: API_BASE_URL + "/pant/collectPant/" + pantId,
-        method: 'GET',
+        method: 'GET'
     });
 }
 
@@ -53,18 +61,19 @@ export function login(loginRequest) {
     });
 }
 
+export function newSchoolclass(schoolRequest) {
+    return request({
+        url: API_BASE_URL + "/schoolclass/newSchoolclass",
+        method: 'POST',
+        body: JSON.stringify(schoolRequest)
+    });
+}
+
 export function signup(signupRequest) {
     return request({
         url: API_BASE_URL + "/auth/signup",
         method: 'POST',
         body: JSON.stringify(signupRequest)
-    });
-}
-
-export function checkUsernameAvailability(username) {
-    return request({
-        url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
-        method: 'GET'
     });
 }
 

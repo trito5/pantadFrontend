@@ -12,9 +12,9 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default class Example extends React.Component {
+class AppHeader extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,22 +36,14 @@ export default class Example extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            {/* <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
-                            </NavItem> */}
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    Options
+                                    Pant
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} to="/">Pantlista</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} to="/reguser">Registera användare</NavLink>
+                                            <NavLink tag={Link} to="/pant">Pantlista</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>
@@ -66,6 +58,23 @@ export default class Example extends React.Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Profil
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} to="/login">Log In</NavLink>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>
+                                        <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
                         </Nav>
                     </Collapse>
                 </Navbar>
@@ -73,3 +82,5 @@ export default class Example extends React.Component {
         );
     }
 }
+
+export default withRouter(AppHeader);
