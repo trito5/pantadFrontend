@@ -7,6 +7,7 @@ import { ACCESS_TOKEN } from "./constants";
 import { Route, withRouter, Switch } from "react-router-dom";
 import PantLista from './pant/PantLista';
 import NewPant from './pant/NewPant';
+import "./App.css";
 
 class App extends Component {
   constructor() {
@@ -74,8 +75,6 @@ class App extends Component {
     if (isLoading) {
       return <p>Loading...</p>;
     }
-
-    console.log(this.state.currentUser);
 
     return (
       <div className="App">

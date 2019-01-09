@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { GOOGLE_API_KEY } from "../constants";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const Burk = ({ text }) => <div>{text}</div>;
 
 class SimpleMap extends Component {
     static defaultProps = {
@@ -14,11 +14,9 @@ class SimpleMap extends Component {
     };
 
     render() {
-        console.log(this.props.pantLista);
-
         const varjePant = this.props.pantLista.map(pant => {
             return (
-                <AnyReactComponent
+                <Burk
                     lat={pant.latitude}
                     lng={pant.longitude}
                     text={'🥤'}
@@ -28,7 +26,7 @@ class SimpleMap extends Component {
 
         return (
             // Important! Always set the container height explicitly
-            <div style={{ height: '50vh', width: '50%' }}>
+            <div style={{ height: '50vh', width: '100%' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
                     defaultCenter={this.props.center}

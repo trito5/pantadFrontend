@@ -1,8 +1,8 @@
-export const API_BASE_URL = 'http://localhost:8080';
+export const API_BASE_URL = 'http://localhost:5000';
 //export const API_BASE_URL = '/api';
 export const ACCESS_TOKEN = 'accessToken';
-export const GOOGLE_API_KEY = "";
-export const GOOGLE_API_KEY2 = "";
+export const GOOGLE_API_KEY = "AIzaSyD_lKjYk6AswFRCg7KIqd9s-GwXcy5nSSs";
+export const GOOGLE_API_KEY2 = "AIzaSyBj5QkLP_tngVqWL6fInak_Qt-Ps3LVCOw";
 
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 40;

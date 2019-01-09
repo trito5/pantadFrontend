@@ -1,0 +1,22 @@
+.mainContent {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.pantItem {
+    padding: 5px 0;
+    display: grid;
+    grid-template-columns: 75% 20%;
+    grid-column-gap: 5%;
+    border-bottom: 1px solid #ccc;
+}
+
+.pantInfo p {
+    margin: 0;
+}
+
+.collectButton {
+    height: 40px;
+    align-self: center;
+}

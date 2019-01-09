@@ -5,18 +5,18 @@ class Pant extends Component {
     render() {
         const { pant } = this.props;
 
-        console.log(this.props)
-
         let button = "";
 
         if (this.props.isSchoolclass) {
-            button = <button onClick={() => { this.props.collectedPant(this.props.pant.pantId) }}>Knapp</button>;
+            button = <button className="collectButton btn btn-primary btn-sm" onClick={() => { this.props.collectedPant(this.props.pant.pantId) }}>Hämta</button>;
         }
 
         return (
-            <div>
-                <p>{pant.value}</p>
-                <p>{pant.address}</p>
+            <div className="pantItem">
+                <div className="pantInfo">
+                    <p>{pant.value}</p>
+                    <p>{pant.address}</p>
+                </div>
                 {button}
             </div>
         );
