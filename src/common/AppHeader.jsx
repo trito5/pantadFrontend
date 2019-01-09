@@ -48,7 +48,7 @@ class AppHeader extends React.Component {
                                     </DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} to="/regclass">Registera class</NavLink>
+                                            <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera class</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>

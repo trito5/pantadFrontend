@@ -48,8 +48,8 @@ class PantLista extends Component {
         }
         return (
             <React.Fragment>
+                <SimpleMap allPant={this.state.pantList} />
                 {allPant}
-                <SimpleMap />
             </React.Fragment>
         );
     }

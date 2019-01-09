@@ -70,7 +70,7 @@ class NewPant extends Component {
         if (latitude === "" && longitude === "") {
             this.handleGpsFromOnlyAddress().then(
                 () => this.register()
-            );
+            ).catch(error => { console.log(error) });
         }
         else this.register();
 

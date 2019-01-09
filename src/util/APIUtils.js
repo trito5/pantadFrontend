@@ -1,17 +1,20 @@
 import { API_BASE_URL, ACCESS_TOKEN, GOOGLE_API_KEY2 } from "../constants";
 
-const request = (options) => {
-    const headers = new Headers({
-        'Content-Type': 'application/json',
-    })
+const request = (options, isGoogle = false) => {
+    if (!isGoogle) {
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+        })
 
-    if (localStorage.getItem(ACCESS_TOKEN)) {
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+        if (localStorage.getItem(ACCESS_TOKEN)) {
+            headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+        }
+
+        const defaults = { headers: headers };
+        options = Object.assign({}, defaults, options);
+    } else {
+        options = Object.assign({}, options);
     }
-
-    const defaults = { headers: headers };
-    options = Object.assign({}, options);
-    // Lägg till "defaults," efter test
 
     return fetch(options.url, options)
         .then(response =>
@@ -43,7 +46,7 @@ export function getGpsFromAddress(address) {
     return request({
         url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + GOOGLE_API_KEY2,
         method: 'GET'
-    })
+    }, true);
 }
 
 export function collectPant(pantId) {
@@ -55,7 +58,7 @@ export function collectPant(pantId) {
 
 export function login(loginRequest) {
     return request({
-        url: API_BASE_URL + "/auth/signin",
+        url: API_BASE_URL + "/api/auth/signin",
         method: 'POST',
         body: JSON.stringify(loginRequest)
     });
@@ -63,7 +66,7 @@ export function login(loginRequest) {
 
 export function newSchoolclass(schoolRequest) {
     return request({
-        url: API_BASE_URL + "/schoolclass/newSchoolclass",
+        url: API_BASE_URL + "/api/auth/signupClass",
         method: 'POST',
         body: JSON.stringify(schoolRequest)
     });
@@ -71,7 +74,7 @@ export function newSchoolclass(schoolRequest) {
 
 export function signup(signupRequest) {
     return request({
-        url: API_BASE_URL + "/auth/signup",
+        url: API_BASE_URL + "/api/auth/signupUser",
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });
@@ -79,7 +82,7 @@ export function signup(signupRequest) {
 
 export function checkEmailAvailability(email) {
     return request({
-        url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
+        url: API_BASE_URL + "/api/user/checkEmailAvailability?email=" + email,
         method: 'GET'
     });
 }
@@ -91,7 +94,7 @@ export function getCurrentUser() {
     }
 
     return request({
-        url: API_BASE_URL + "/user/me",
+        url: API_BASE_URL + "/api/user/me",
         method: 'GET'
     });
 }

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { signup, checkEmailAvailability } from '../../util/APIUtils';
+import { signup, checkEmailAvailability, newSchoolclass } from '../../util/APIUtils';
 import {
     NAME_MIN_LENGTH, NAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
-    PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
+    PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH,
+    SCHOOLNAME_MIN_LENGTH, SCHOOLNAME_MAX_LENGTH,
+    SCHOOLCLASSNAME_MIN_LENGTH, SCHOOLCLASSNAME_MAX_LENGTH
 } from '../../constants';
+import { withRouter } from "react-router-dom";
 
 
 class Signup extends Component {
@@ -18,6 +21,12 @@ class Signup extends Component {
                 value: ''
             },
             password: {
+                value: ''
+            },
+            schoolName: {
+                value: ''
+            },
+            schoolClassName: {
                 value: ''
             }
         }
@@ -43,18 +52,39 @@ class Signup extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const signupRequest = {
-            name: this.state.name.value,
-            email: this.state.email.value,
-            password: this.state.password.value
-        };
-        signup(signupRequest)
-            .then(response => {
-                console.log("reg success: " + response);
-                this.props.history.push("/login");
-            }).catch(error => {
-                console.log(error.message);
-            });
+        if (this.props.isSchoolclass) {
+            const signupRequest = {
+                school: this.state.schoolName.value,
+                className: this.state.schoolClassName.value,
+                name: this.state.name.value,
+                email: this.state.email.value,
+                password: this.state.password.value,
+                username: this.state.email.value
+            };
+            newSchoolclass(signupRequest)
+                .then(response => {
+                    console.log("reg success: " + response);
+                    this.props.history.push("/login");
+                }).catch(error => {
+                    console.log(error.message);
+                });
+        }
+        else {
+
+            const signupRequest = {
+                name: this.state.name.value,
+                email: this.state.email.value,
+                password: this.state.password.value,
+                username: this.state.email.value
+            };
+            signup(signupRequest)
+                .then(response => {
+                    console.log("reg success: " + response);
+                    this.props.history.push("/login");
+                }).catch(error => {
+                    console.log(error.message);
+                });
+        }
     }
 
     isFormInvalid() {
@@ -65,11 +95,43 @@ class Signup extends Component {
     }
 
     render() {
+
+        let skola = ""
+
+        if (this.props.isSchoolclass) {
+            skola =
+                <React.Fragment>
+                    <label>School name</label>
+                    <br />
+                    <input
+                        name="schoolName"
+                        autoComplete="off"
+                        placeholder="Your school name"
+                        value={this.state.schoolName.value}
+                        onChange={event => this.handleInputChange(event, this.validateSchoolName)}
+                    />
+                    <small>{this.state.schoolName.errorMsg}</small>
+                    <br />
+                    <label>School class name</label>
+                    <br />
+                    <input
+                        name="schoolClassName"
+                        autoComplete="off"
+                        placeholder="Your class name"
+                        value={this.state.schoolClassName.value}
+                        onChange={event => this.handleInputChange(event, this.validateSchoolClassName)}
+                    />
+                    <small>{this.state.schoolClassName.errorMsg}</small>
+                    <br />
+                </React.Fragment>
+        }
+
         return (
             <div className="container">
                 <h1>Sign Up</h1>
                 <div>
                     <form onSubmit={this.handleSubmit}>
+                        {skola}
                         <label>Full Name</label>
                         <br />
                         <input
@@ -124,6 +186,44 @@ class Signup extends Component {
             return {
                 validationStatus: 'error',
                 errorMsg: `Name is too long (Maximum ${NAME_MAX_LENGTH} characters allowed.)`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };
+        }
+    }
+
+    validateSchoolName = (schoolName) => {
+        if (schoolName.length < SCHOOLNAME_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Name is too short (Minimum ${SCHOOLNAME_MIN_LENGTH} characters needed.)`
+            }
+        } else if (schoolName.length > SCHOOLNAME_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `Name is too long (Maximum ${SCHOOLNAME_MAX_LENGTH} characters allowed.)`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };
+        }
+    }
+
+    validateSchoolClassName = (schoolClassName) => {
+        if (schoolClassName.length < SCHOOLCLASSNAME_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Name is too short (Minimum ${SCHOOLCLASSNAME_MIN_LENGTH} characters needed.)`
+            }
+        } else if (schoolClassName.length > SCHOOLCLASSNAME_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `Name is too long (Maximum ${SCHOOLCLASSNAME_MAX_LENGTH} characters allowed.)`
             }
         } else {
             return {
@@ -237,4 +337,4 @@ class Signup extends Component {
 
 }
 
-export default Signup;
+export default withRouter(Signup);

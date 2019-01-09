@@ -25,7 +25,7 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     login({
-      email: this.state.email,
+      usernameOrEmail: this.state.email,
       password: this.state.password
     })
       .then(response => {

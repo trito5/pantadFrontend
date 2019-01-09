@@ -5,7 +5,6 @@ import Login from "./user/login/Login";
 import Signup from "./user/signup/Signup";
 import { ACCESS_TOKEN } from "./constants";
 import { Route, withRouter, Switch } from "react-router-dom";
-import SchoolClass from "./schoolclass/SchoolClass";
 import PantLista from './pant/PantLista';
 import NewPant from './pant/NewPant';
 
@@ -15,11 +14,13 @@ class App extends Component {
     this.state = {
       currentUser: null,
       isAuthenticated: false,
+      isSchoolclass: false,
       isLoading: false
     }
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleIsSchoolclass = this.handleIsSchoolclass.bind(this);
   }
 
   loadCurrentUser() {
@@ -43,6 +44,12 @@ class App extends Component {
 
   componentDidMount() {
     this.loadCurrentUser();
+  }
+
+  handleIsSchoolclass() {
+    this.setState({
+      isSchoolclass: true
+    });
   }
 
   handleLogout(redirectTo = "/") {
@@ -71,6 +78,7 @@ class App extends Component {
     return (
       <div className="App">
         <AppHeader
+          onSchoolclass={this.handleIsSchoolclass}
           isAuthenticated={this.state.isAuthenticated}
           currentUser={this.state.currentUser}
           onLogout={this.handleLogout}
@@ -80,8 +88,10 @@ class App extends Component {
             path="/login"
             render={props => <Login onLogin={this.handleLogin} {...props} />}
           />
-          <Route path="/signup" component={Signup} />
-          <Route path="/regclass" component={SchoolClass} />
+          <Route
+            path="/signup"
+            render={() => <Signup isSchoolclass={this.state.isSchoolclass} />}
+          />
           <Route path="/pant" component={PantLista} />
           <Route path="/regpant" component={NewPant} />
         </Switch>

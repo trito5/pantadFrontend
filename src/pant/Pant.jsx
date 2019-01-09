@@ -7,8 +7,6 @@ class Pant extends Component {
             <div>
                 <p>{pant.value}</p>
                 <p>{pant.address}</p>
-                <p>{pant.longitude}</p>
-                <p>{pant.latitude}</p>
             </div>
         );
     }
