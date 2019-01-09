@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { getAllPant } from "../util/APIUtils";
+import { getAllPant, collectPant } from "../util/APIUtils";
 import Pant from "./Pant";
-import SimpleMap from "../map/SimpleMap";
 
 class PantLista extends Component {
     constructor(props) {
@@ -11,6 +10,7 @@ class PantLista extends Component {
             pantList: []
         }
         this.loadPant = this.loadPant.bind(this);
+        this.handleSetCollected = this.handleSetCollected.bind(this);
     }
 
     componentDidMount() {
@@ -35,11 +35,32 @@ class PantLista extends Component {
             });
     }
 
+    handleSetCollected(id) {
+        this.setState({
+            isLoading: true
+        });
+        collectPant(id)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    isLoading: false
+                });
+            })
+            .then(() => { this.loadPant() })
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    isLoading: false
+                });
+            });
+    }
+
+
     render() {
 
         const allPant = this.state.pantList.map((pant, index) => {
             return (
-                <Pant pant={pant} key={index} />
+                <Pant pant={pant} collectedPant={this.handleSetCollected} isSchoolclass={this.props.currentUser.schoolclass} key={index} />
             );
         });
 
@@ -48,7 +69,7 @@ class PantLista extends Component {
         }
         return (
             <React.Fragment>
-                <SimpleMap allPant={this.state.pantList} />
+                {/* <SimpleMap pantLista={this.state.pantList}/> */}
                 {allPant}
             </React.Fragment>
         );

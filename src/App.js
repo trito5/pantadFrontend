@@ -75,6 +75,8 @@ class App extends Component {
       return <p>Loading...</p>;
     }
 
+    console.log(this.state.currentUser);
+
     return (
       <div className="App">
         <AppHeader
@@ -92,7 +94,10 @@ class App extends Component {
             path="/signup"
             render={() => <Signup isSchoolclass={this.state.isSchoolclass} />}
           />
-          <Route path="/pant" component={PantLista} />
+          <Route
+            path="/pant"
+            render={() => <PantLista currentUser={this.state.currentUser} />}
+          />
           <Route path="/regpant" component={NewPant} />
         </Switch>
 

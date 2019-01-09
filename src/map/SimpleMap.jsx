@@ -14,6 +14,18 @@ class SimpleMap extends Component {
     };
 
     render() {
+        console.log(this.props.pantLista);
+
+        const varjePant = this.props.pantLista.map(pant => {
+            return (
+                <AnyReactComponent
+                    lat={pant.latitude}
+                    lng={pant.longitude}
+                    text={'🥤'}
+                />
+            );
+        })
+
         return (
             // Important! Always set the container height explicitly
             <div style={{ height: '50vh', width: '50%' }}>
@@ -22,11 +34,7 @@ class SimpleMap extends Component {
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >
-                    <AnyReactComponent
-                        lat={59.407319}
-                        lng={17.946887}
-                        text={'ACADEMY'}
-                    />
+                    {varjePant}
                 </GoogleMapReact>
             </div>
         );

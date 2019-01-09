@@ -51,7 +51,7 @@ export function getGpsFromAddress(address) {
 
 export function collectPant(pantId) {
     return request({
-        url: API_BASE_URL + "/pant/collectPant/" + pantId,
+        url: API_BASE_URL + "/pant/collectedPant/" + pantId,
         method: 'GET'
     });
 }
