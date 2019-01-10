@@ -103,8 +103,7 @@ class App extends Component {
           <PrivateRoute authenticated={this.state.isAuthenticated}
             path="/profile"
             component={Profile}
-            currentUser={this.state.currentUser} />}
-/>
+            currentUser={this.state.currentUser} />
 
         </Switch>
 

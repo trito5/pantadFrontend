@@ -18,65 +18,83 @@ class AppHeader extends React.Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.isLoggedIn = this.isLoggedIn(this);
         this.state = {
             isOpen: false
         };
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
-    render() {
 
-        let signupClass = (
-            <DropdownItem>
-                <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera class</NavLink>
-            </DropdownItem>
-        );
-
-        let signupUser = (
-            <DropdownItem>
-                <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
-            </DropdownItem>
-        );
-
-        let login = (
-            <DropdownItem>
-                <NavLink tag={Link} to="/login">Log In</NavLink>
-            </DropdownItem>
-        );
-
-        let profile = "";
-
-        let signOut = "";
-
-        let regPant = "";
-
+    isLoggedIn() {
         if (this.props.isAuthenticated) {
-            login = "";
-            signupUser = "";
-            signupClass = "";
-
-            profile = (
-                <DropdownItem>
-                    <NavLink tag={Link} to="/profile">Profil</NavLink>
-                </DropdownItem>
+            return (
+                <React.Fragment>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/profile">Profil</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
+                    </DropdownItem>
+                </React.Fragment>
             );
-
-            signOut = (
-                <DropdownItem>
-                    <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
-                </DropdownItem>
-            );
-
-            regPant = (
-                <DropdownItem>
-                    <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
-                </DropdownItem>
-            );
-
         }
+
+        return (
+            <React.Fragment>
+                <DropdownItem>
+                    <NavLink tag={Link} to="/login">Log In</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                    <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                    <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera klass</NavLink>
+                </DropdownItem>
+            </React.Fragment>
+        );
+
+    }
+
+    render() {
+        let navBarItems = "";
+        if (this.props.isAuthenticated) {
+            navBarItems = (
+                <React.Fragment>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/profile">Profil</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
+                    </DropdownItem>
+                </React.Fragment>
+            );
+        } else {
+            navBarItems = (
+                <React.Fragment>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/login">Log In</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera klass</NavLink>
+                    </DropdownItem>
+                </React.Fragment>
+            );
+        }
+
 
         return (
             <div>
@@ -93,12 +111,7 @@ class AppHeader extends React.Component {
                                     <DropdownItem>
                                         <NavLink tag={Link} to="/pant">Pantlista</NavLink>
                                     </DropdownItem>
-                                    {signupUser}
-                                    {signupClass}
-                                    {login}
-                                    {regPant}
-                                    {profile}
-                                    {signOut}
+                                    {navBarItems}
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>

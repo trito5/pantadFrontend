@@ -17,6 +17,7 @@ class SimpleMap extends Component {
         const varjePant = this.props.pantLista.map(pant => {
             return (
                 <Burk
+                    key={pant.id}
                     lat={pant.latitude}
                     lng={pant.longitude}
                     text={'♻️'}
