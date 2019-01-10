@@ -77,9 +77,12 @@ class NewPant extends Component {
             address: this.state.address,
             longitude: this.state.longitude,
             latitude: this.state.latitude,
-            collectInfo: this.state.info,
+            postalCode: this.state.postalCode,
             city: this.state.city,
-            postalCode: this.state.postalCode
+            collectTimeFrame: this.state.collectTimeFrame,
+            collectInfo: this.state.info,
+
+
         };
         newPant(newPantRequest)
             .then(response => {

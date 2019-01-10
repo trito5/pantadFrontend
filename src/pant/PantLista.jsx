@@ -8,6 +8,7 @@ class PantLista extends Component {
     super();
     this.state = {
       isLoading: true,
+      isSchool: false,
       pantList: []
     };
     this.loadPant = this.loadPant.bind(this);
@@ -25,9 +26,15 @@ class PantLista extends Component {
     getAllPant()
       .then(response => {
         this.setState({
-          pantList: response,
-          isLoading: false
+          pantList: response
         });
+      })
+      .then(() => {
+        if (this.props.currentUser.schoolclass) {
+          this.setState({ isLoading: false, isSchool: true });
+        } else {
+          this.setState({ isLoading: false });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -65,7 +72,7 @@ class PantLista extends Component {
         <Pant
           pant={pant}
           collectedPant={this.handleSetCollected}
-          isSchoolclass={this.props.currentUser.schoolclass}
+          isSchoolclass={this.state.isSchool}
           key={index}
         />
       );

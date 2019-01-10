@@ -14,7 +14,7 @@ class SimpleMap extends Component {
     };
 
     render() {
-        const varjePant = this.props.pantLista.map(pant => {
+        const varjePant = this.props.pantLista.map((pant, index) => {
             return (
                 <Burk
                     key={pant.id}

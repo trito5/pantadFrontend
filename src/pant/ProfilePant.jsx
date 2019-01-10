@@ -9,11 +9,11 @@ class ProfilePant extends Component {
 
         if (isSchoolclass) {
             button = <button className="pantButton btn btn-primary btn-sm" onClick={() => {
-                unCollectPant(pant.id)
+                unCollectPant(pant.pantId)
             }}>Ångra</button>;
         } else {
             button = <button className="pantButton btn btn-primary btn-sm" onClick={() => {
-                deletePant(pant.id)
+                deletePant(pant.pantId)
             }}>Ta bort</button>
         }
 
