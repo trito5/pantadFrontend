@@ -69,6 +69,9 @@ class AppHeader extends React.Component {
                                     <DropdownItem>
                                         <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
                                     </DropdownItem>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} to="/profile">Profil</NavLink>
+                                    </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
                                         <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>

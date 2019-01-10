@@ -4,8 +4,8 @@ import Pant from "./Pant";
 import SimpleMap from "../map/SimpleMap";
 
 class PantLista extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       isLoading: true,
       pantList: []

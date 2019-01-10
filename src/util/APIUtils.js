@@ -34,6 +34,14 @@ export function getAllPant() {
     });
 }
 
+export function getMyPant() {
+    return request({
+        url: API_BASE_URL + "/pant/collectedPant",
+        method: "GET"
+    });
+}
+
+
 export function newPant(pantRequest) {
     return request({
         url: API_BASE_URL + "/pant/newPant",

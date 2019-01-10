@@ -8,6 +8,8 @@ import { Route, withRouter, Switch } from "react-router-dom";
 import PantLista from './pant/PantLista';
 import NewPant from './pant/NewPant';
 import "./App.css";
+import Profile from './user/profile/Profile';
+import PrivateRoute from './common/PrivateRoute';
 
 class App extends Component {
   constructor() {
@@ -97,7 +99,15 @@ class App extends Component {
             path="/pant"
             render={() => <PantLista currentUser={this.state.currentUser} />}
           />
-          <Route path="/regpant" component={NewPant} />
+          <PrivateRoute authenticated={this.state.isAuthenticated}
+            path="/regpant"
+            component={NewPant} />
+          <PrivateRoute authenticated={this.state.isAuthenticated}
+            path="/profile"
+            component={Profile}
+            isSchoolclass={this.state.isSchoolclass} />}
+/>
+
         </Switch>
 
       </div>

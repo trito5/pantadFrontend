@@ -19,7 +19,7 @@ class SimpleMap extends Component {
                 <Burk
                     lat={pant.latitude}
                     lng={pant.longitude}
-                    text={'🥤'}
+                    text={'♻️'}
                 />
             );
         })

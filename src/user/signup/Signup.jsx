@@ -88,10 +88,20 @@ class Signup extends Component {
     }
 
     isFormInvalid() {
+        if (this.props.isSchoolclass) {
+            return !(this.state.name.validateStatus === 'success' &&
+                this.state.email.validateStatus === 'success' &&
+                this.state.password.validateStatus === 'success' &&
+                this.state.schoolName.validateStatus === 'success' &&
+                this.state.schoolClassName.validateStatus === 'success'
+            );
+        }
+
         return !(this.state.name.validateStatus === 'success' &&
             this.state.email.validateStatus === 'success' &&
             this.state.password.validateStatus === 'success'
         );
+
     }
 
     render() {

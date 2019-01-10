@@ -14,7 +14,6 @@ class NewPant extends Component {
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleGetGPS = this.handleGetGPS.bind(this);
         this.handleGpsFromOnlyAddress = this.handleGpsFromOnlyAddress.bind(this);
     }
 
@@ -41,28 +40,28 @@ class NewPant extends Component {
             });
     }
 
-    handleGetGPS() {
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
+    // handleGetGPS() {
+    //     const options = {
+    //         enableHighAccuracy: true,
+    //         timeout: 5000,
+    //         maximumAge: 0
+    //     };
 
-        const success = (pos) => {
-            this.setState({
-                longitude: pos.coords.longitude,
-                latitude: pos.coords.latitude
-            });
-            console.log(pos.coords.longitude);
-            console.log(pos.coords.latitude);
-        }
+    //     const success = (pos) => {
+    //         this.setState({
+    //             longitude: pos.coords.longitude,
+    //             latitude: pos.coords.latitude
+    //         });
+    //         console.log(pos.coords.longitude);
+    //         console.log(pos.coords.latitude);
+    //     }
 
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        }
+    //     function error(err) {
+    //         console.warn(`ERROR(${err.code}): ${err.message}`);
+    //     }
 
-        navigator.geolocation.getCurrentPosition(success, error, options);
-    }
+    //     navigator.geolocation.getCurrentPosition(success, error, options);
+    // }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -104,8 +103,7 @@ class NewPant extends Component {
                         <Input required value={this.state.address} onChange={event => this.handleAddressChange(event)} placeholder="Upphämtningsadress" />
                     </InputGroup>
                     <br />
-                    <Button onClick={this.handleGetGPS}>Underlätta med GPS</Button>
-                    <p></p>
+                    {/* <Button onClick={this.handleGetGPS}>Underlätta med GPS</Button> */}
                     <Button type="submit" color="primary">Registrera</Button>
                 </form>
             </div>
