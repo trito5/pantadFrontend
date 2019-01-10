@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 
-class Pant extends Component {
+class ProfilePant extends Component {
 
     render() {
-        const { pant } = this.props;
+        const { pant, isSchoolclass, unCollectPant, deletePant } = this.props;
 
         let button = "";
 
-        if (this.props.isSchoolclass) {
+        if (isSchoolclass) {
             button = <button className="pantButton btn btn-primary btn-sm" onClick={() => {
-                this.props.collectedPant(this.props.pant.pantId)
-            }}>Hämta</button>;
+                unCollectPant(pant.id)
+            }}>Ångra</button>;
+        } else {
+            button = <button className="pantButton btn btn-primary btn-sm" onClick={() => {
+                deletePant(pant.id)
+            }}>Ta bort</button>
         }
 
         return (
@@ -25,4 +29,4 @@ class Pant extends Component {
     }
 }
 
-export default Pant;
+export default ProfilePant;

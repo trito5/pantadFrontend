@@ -34,13 +34,19 @@ export function getAllPant() {
     });
 }
 
-export function getMyPant() {
+export function getSchoolPant() {
     return request({
         url: API_BASE_URL + "/pant/collectedPant",
         method: "GET"
     });
 }
 
+export function getUserPant() {
+    return request({
+        url: API_BASE_URL + "/pant/getUserPant",
+        method: "GET"
+    });
+}
 
 export function newPant(pantRequest) {
     return request({
@@ -60,6 +66,20 @@ export function getGpsFromAddress(address) {
 export function collectPant(pantId) {
     return request({
         url: API_BASE_URL + "/pant/collectedPant/" + pantId,
+        method: 'GET'
+    });
+}
+
+export function unCollectPant(pantId) {
+    return request({
+        url: API_BASE_URL + "/pant/unCollectPant/" + pantId,
+        method: 'GET'
+    });
+}
+
+export function deletePant(pantId) {
+    return request({
+        url: API_BASE_URL + "/pant/deletePant/" + pantId,
         method: 'GET'
     });
 }

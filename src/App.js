@@ -57,18 +57,16 @@ class App extends Component {
 
   handleLogout(redirectTo = "/") {
     localStorage.removeItem(ACCESS_TOKEN);
-
     this.setState({
       currentUser: null,
       isAuthenticated: false,
     });
-
     this.props.history.push(redirectTo);
   }
 
   handleLogin() {
     this.loadCurrentUser();
-    this.props.history.push("/");
+    this.props.history.push("/pant");
   }
 
   render() {
@@ -105,7 +103,7 @@ class App extends Component {
           <PrivateRoute authenticated={this.state.isAuthenticated}
             path="/profile"
             component={Profile}
-            isSchoolclass={this.state.isSchoolclass} />}
+            currentUser={this.state.currentUser} />}
 />
 
         </Switch>

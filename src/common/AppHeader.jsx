@@ -5,7 +5,6 @@ import {
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem,
     NavLink,
     UncontrolledDropdown,
     DropdownToggle,
@@ -29,6 +28,56 @@ class AppHeader extends React.Component {
         });
     }
     render() {
+
+        let signupClass = (
+            <DropdownItem>
+                <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera class</NavLink>
+            </DropdownItem>
+        );
+
+        let signupUser = (
+            <DropdownItem>
+                <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
+            </DropdownItem>
+        );
+
+        let login = (
+            <DropdownItem>
+                <NavLink tag={Link} to="/login">Log In</NavLink>
+            </DropdownItem>
+        );
+
+        let profile = "";
+
+        let signOut = "";
+
+        let regPant = "";
+
+        if (this.props.isAuthenticated) {
+            login = "";
+            signupUser = "";
+            signupClass = "";
+
+            profile = (
+                <DropdownItem>
+                    <NavLink tag={Link} to="/profile">Profil</NavLink>
+                </DropdownItem>
+            );
+
+            signOut = (
+                <DropdownItem>
+                    <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
+                </DropdownItem>
+            );
+
+            regPant = (
+                <DropdownItem>
+                    <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
+                </DropdownItem>
+            );
+
+        }
+
         return (
             <div>
                 <Navbar color="light" light expand="md">
@@ -38,44 +87,18 @@ class AppHeader extends React.Component {
                         <Nav className="ml-auto" navbar>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    Pant
+                                    Meny
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} to="/pant">Pantlista</NavLink>
-                                        </NavItem>
+                                        <NavLink tag={Link} to="/pant">Pantlista</NavLink>
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera class</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Profil
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        <NavLink tag={Link} to="/login">Log In</NavLink>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavLink tag={Link} to="/profile">Profil</NavLink>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
-                                    </DropdownItem>
+                                    {signupUser}
+                                    {signupClass}
+                                    {login}
+                                    {regPant}
+                                    {profile}
+                                    {signOut}
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>

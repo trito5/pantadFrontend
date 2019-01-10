@@ -8,21 +8,47 @@ class NewPant extends Component {
         this.state = {
             value: "",
             address: "",
+            postalCode: "",
+            city: "",
             longitude: "",
-            latitude: ""
+            latitude: "",
+            info: "",
+            collectTimeFrame: ""
         }
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleInfoChange = this.handleInfoChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handlePostalCodeChange = this.handlePostalCodeChange.bind(this);
+        this.handlecollectTimeFrameChange = this.handlecollectTimeFrameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGpsFromOnlyAddress = this.handleGpsFromOnlyAddress.bind(this);
+        this.register = this.register.bind(this);
     }
+
 
     handleValueChange(event) {
         this.setState({ value: event.target.value })
     }
 
+    handlecollectTimeFrameChange(event) {
+        this.setState({ collectTimeFrame: event.target.value })
+    }
+
     handleAddressChange(event) {
         this.setState({ address: event.target.value })
+    }
+
+    handleInfoChange(event) {
+        this.setState({ info: event.target.value })
+    }
+
+    handleCityChange(event) {
+        this.setState({ city: event.target.value });
+    }
+
+    handlePostalCodeChange(event) {
+        this.setState({ postalCode: event.target.value });
     }
 
     handleGpsFromOnlyAddress() {
@@ -32,55 +58,28 @@ class NewPant extends Component {
                     latitude: response.results[0].geometry.location.lat,
                     longitude: response.results[0].geometry.location.lng
                 })
-                console.log(response.results[0].geometry.location.lat);
-                console.log(response.results[0].geometry.location.lng);
             })
-            .catch(error => {
-                console.log(error);
-            });
     }
-
-    // handleGetGPS() {
-    //     const options = {
-    //         enableHighAccuracy: true,
-    //         timeout: 5000,
-    //         maximumAge: 0
-    //     };
-
-    //     const success = (pos) => {
-    //         this.setState({
-    //             longitude: pos.coords.longitude,
-    //             latitude: pos.coords.latitude
-    //         });
-    //         console.log(pos.coords.longitude);
-    //         console.log(pos.coords.latitude);
-    //     }
-
-    //     function error(err) {
-    //         console.warn(`ERROR(${err.code}): ${err.message}`);
-    //     }
-
-    //     navigator.geolocation.getCurrentPosition(success, error, options);
-    // }
 
     handleSubmit(event) {
         event.preventDefault();
-        const { latitude, longitude } = this.state;
-        if (latitude === "" && longitude === "") {
-            this.handleGpsFromOnlyAddress().then(
-                () => this.register()
-            ).catch(error => { console.log(error) });
-        }
-        else this.register();
-
+        this.handleGpsFromOnlyAddress()
+            .then(() => {
+                this.register();
+            })
+            .catch(error => { console.log(error) });
 
     }
+
     register() {
         const newPantRequest = {
             value: this.state.value,
             address: this.state.address,
             longitude: this.state.longitude,
-            latitude: this.state.latitude
+            latitude: this.state.latitude,
+            collectInfo: this.state.info,
+            city: this.state.city,
+            postalCode: this.state.postalCode
         };
         newPant(newPantRequest)
             .then(response => {
@@ -103,7 +102,22 @@ class NewPant extends Component {
                         <Input required value={this.state.address} onChange={event => this.handleAddressChange(event)} placeholder="Upphämtningsadress" />
                     </InputGroup>
                     <br />
-                    {/* <Button onClick={this.handleGetGPS}>Underlätta med GPS</Button> */}
+                    <InputGroup>
+                        <Input required value={this.state.postalCode} onChange={event => this.handlePostalCodeChange(event)} placeholder="Postnummer" />
+                    </InputGroup>
+                    <br />
+                    <InputGroup>
+                        <Input required value={this.state.city} onChange={event => this.handleCityChange(event)} placeholder="Postord" />
+                    </InputGroup>
+                    <br />
+                    <InputGroup>
+                        <Input required value={this.state.collectTimeFrame} onChange={event => this.handlecollectTimeFrameChange(event)} placeholder="Hämttid" />
+                    </InputGroup>
+                    <br />
+                    <InputGroup>
+                        <Input value={this.state.info} onChange={event => this.handleInfoChange(event)} placeholder="Portkod, trappor, övrigt" />
+                    </InputGroup>
+                    <br />
                     <Button type="submit" color="primary">Registrera</Button>
                 </form>
             </div>

@@ -74,6 +74,7 @@ class PantLista extends Component {
     if (this.state.isLoading) {
       return <p>Loading...</p>;
     }
+
     return (
       <div className="mainContent">
         <SimpleMap pantLista={this.state.pantList} />
