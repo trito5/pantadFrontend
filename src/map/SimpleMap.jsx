@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { GOOGLE_API_KEY } from "../constants";
 
-const Burk = ({ text }) => <div>{text}</div>;
+const Burk = ({ text }) => <div className="ikon">{text}</div>;
 
 class SimpleMap extends Component {
     static defaultProps = {

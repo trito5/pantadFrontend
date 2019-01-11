@@ -84,29 +84,29 @@ class App extends Component {
           currentUser={this.state.currentUser}
           onLogout={this.handleLogout}
         />
-        <Switch>
-          <Route
-            path="/login"
-            render={props => <Login onLogin={this.handleLogin} {...props} />}
-          />
-          <Route
-            path="/signup"
-            render={() => <Signup isSchoolclass={this.state.isSchoolclass} />}
-          />
-          <Route
-            path="/pant"
-            render={() => <PantLista currentUser={this.state.currentUser} />}
-          />
-          <PrivateRoute authenticated={this.state.isAuthenticated}
-            path="/regpant"
-            component={NewPant} />
-          <PrivateRoute authenticated={this.state.isAuthenticated}
-            path="/profile"
-            component={Profile}
-            currentUser={this.state.currentUser} />
-
-        </Switch>
-
+        <div className="mainContent">
+          <Switch>
+            <Route
+              path="/login"
+              render={props => <Login onLogin={this.handleLogin} {...props} />}
+            />
+            <Route
+              path="/signup"
+              render={() => <Signup isSchoolclass={this.state.isSchoolclass} />}
+            />
+            <Route
+              path="/pant"
+              render={() => <PantLista currentUser={this.state.currentUser} />}
+            />
+            <PrivateRoute authenticated={this.state.isAuthenticated}
+              path="/regpant"
+              component={NewPant} />
+            <PrivateRoute authenticated={this.state.isAuthenticated}
+              path="/profile"
+              component={Profile}
+              currentUser={this.state.currentUser} />
+          </Switch>
+        </div>
       </div>
     );
   }

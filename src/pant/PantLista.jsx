@@ -83,10 +83,14 @@ class PantLista extends Component {
     }
 
     return (
-      <div className="mainContent">
-        <SimpleMap pantLista={this.state.pantList} />
-        {allPant}
-      </div>
+      <React.Fragment>
+        <div className="googleMap">
+          <SimpleMap pantLista={this.state.pantList} />
+        </div>
+        <div className="mainContent">
+          {allPant}
+        </div>
+      </React.Fragment>
     );
   }
 }

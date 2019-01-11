@@ -8,7 +8,7 @@ class Pant extends Component {
         let button = "";
 
         if (this.props.isSchoolclass) {
-            button = <button className="pantButton btn btn-primary btn-sm" onClick={() => {
+            button = <button className="pantButton btn btn-success btn-sm" onClick={() => {
                 this.props.collectedPant(this.props.pant.pantId)
             }}>Hämta</button>;
         }
@@ -16,8 +16,8 @@ class Pant extends Component {
         return (
             <div className="pantItem">
                 <div className="pantInfo">
-                    <p>{pant.value}</p>
-                    <p>{pant.address}</p>
+                    <p>Uppskattat värde: {pant.value}</p>
+                    <p>Adress: {pant.address}</p>
                 </div>
                 {button}
             </div>
