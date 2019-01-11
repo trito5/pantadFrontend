@@ -16,9 +16,7 @@ import { Link, withRouter } from "react-router-dom";
 class AppHeader extends React.Component {
     constructor(props) {
         super(props);
-
         this.toggle = this.toggle.bind(this);
-        this.isLoggedIn = this.isLoggedIn(this);
         this.state = {
             isOpen: false
         };
@@ -30,41 +28,9 @@ class AppHeader extends React.Component {
         });
     }
 
-    isLoggedIn() {
-        if (this.props.isAuthenticated) {
-            return (
-                <React.Fragment>
-                    <DropdownItem>
-                        <NavLink tag={Link} to="/regpant">Registera pant</NavLink>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <NavLink tag={Link} to="/profile">Profil</NavLink>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <NavLink onClick={() => this.props.onLogout()}>Sign Out</NavLink>
-                    </DropdownItem>
-                </React.Fragment>
-            );
-        }
-
-        return (
-            <React.Fragment>
-                <DropdownItem>
-                    <NavLink tag={Link} to="/login">Log In</NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                    <NavLink tag={Link} to="/signup">Registera Användare</NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                    <NavLink tag={Link} to="/signup" onClick={this.props.onSchoolclass}>Registera klass</NavLink>
-                </DropdownItem>
-            </React.Fragment>
-        );
-
-    }
-
     render() {
-        let navBarItems = "";
+        let navBarItems;
+
         if (this.props.isAuthenticated) {
             navBarItems = (
                 <React.Fragment>
@@ -95,7 +61,6 @@ class AppHeader extends React.Component {
             );
         }
 
-
         return (
             <div>
                 <Navbar color="light" light expand="md">
@@ -121,5 +86,6 @@ class AppHeader extends React.Component {
         );
     }
 }
+
 
 export default withRouter(AppHeader);

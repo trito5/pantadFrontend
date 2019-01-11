@@ -7,10 +7,10 @@ const Burk = ({ text }) => <div>{text}</div>;
 class SimpleMap extends Component {
     static defaultProps = {
         center: {
-            lat: 59.40,
-            lng: 17.94
+            lat: 59.33,
+            lng: 18.07
         },
-        zoom: 11
+        zoom: 10
     };
 
     render() {
