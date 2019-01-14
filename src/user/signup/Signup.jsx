@@ -52,15 +52,16 @@ class Signup extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        if (this.props.isSchoolclass) {
-            const signupRequest = {
-                school: this.state.schoolName.value,
-                className: this.state.schoolClassName.value,
-                name: this.state.name.value,
-                email: this.state.email.value,
-                password: this.state.password.value,
-                username: this.state.email.value
-            };
+        const signupRequest = {
+            school: this.state.schoolName.value,
+            className: this.state.schoolClassName.value,
+            name: this.state.name.value,
+            email: this.state.email.value,
+            password: this.state.password.value,
+            username: this.state.email.value
+        };
+
+        if (this.props.regAsSchool) {
             newSchoolclass(signupRequest)
                 .then(response => {
                     console.log("reg success: " + response);
@@ -70,13 +71,6 @@ class Signup extends Component {
                 });
         }
         else {
-
-            const signupRequest = {
-                name: this.state.name.value,
-                email: this.state.email.value,
-                password: this.state.password.value,
-                username: this.state.email.value
-            };
             signup(signupRequest)
                 .then(response => {
                     console.log("reg success: " + response);
@@ -88,7 +82,7 @@ class Signup extends Component {
     }
 
     isFormInvalid() {
-        if (this.props.isSchoolclass) {
+        if (this.props.regAsSchool) {
             return !(this.state.name.validateStatus === 'success' &&
                 this.state.email.validateStatus === 'success' &&
                 this.state.password.validateStatus === 'success' &&
@@ -105,79 +99,78 @@ class Signup extends Component {
     }
 
     render() {
-
-        let skola = ""
-
-        if (this.props.isSchoolclass) {
-            skola =
-                <React.Fragment>
-                    <label>School name</label>
-                    <br />
-                    <input
-                        name="schoolName"
-                        autoComplete="off"
-                        placeholder="Your school name"
-                        value={this.state.schoolName.value}
-                        onChange={event => this.handleInputChange(event, this.validateSchoolName)}
-                    />
-                    <small>{this.state.schoolName.errorMsg}</small>
-                    <br />
-                    <label>School class name</label>
-                    <br />
-                    <input
-                        name="schoolClassName"
-                        autoComplete="off"
-                        placeholder="Your class name"
-                        value={this.state.schoolClassName.value}
-                        onChange={event => this.handleInputChange(event, this.validateSchoolClassName)}
-                    />
-                    <small>{this.state.schoolClassName.errorMsg}</small>
-                    <br />
-                </React.Fragment>
-        }
-
         return (
             <div className="container">
-                <h1>Sign Up</h1>
+                <h1>Registrera</h1>
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        {skola}
-                        <label>Full Name</label>
+                        {this.props.regAsSchool &&
+                            <React.Fragment>
+                                <label>Namn på skola </label><small>{this.state.schoolName.errorMsg}</small>
+                                <br />
+                                <div className="form-group">
+                                    <input
+                                        name="schoolName"
+                                        autoComplete="off"
+                                        className="form-control"
+                                        placeholder="Skolnamn"
+                                        value={this.state.schoolName.value}
+                                        onChange={event => this.handleInputChange(event, this.validateSchoolName)}
+                                    />
+                                </div>
+                                <label>Name på klass </label> <small>{this.state.schoolClassName.errorMsg}</small>
+                                <br />
+                                <div className="form-group">
+                                    <input
+                                        name="schoolClassName"
+                                        autoComplete="off"
+                                        className="form-control"
+                                        placeholder="Klassnamn"
+                                        value={this.state.schoolClassName.value}
+                                        onChange={event => this.handleInputChange(event, this.validateSchoolClassName)}
+                                    />
+                                </div>
+                            </React.Fragment>
+                        }
+                        <label>För- och efternamn </label><small>{this.state.name.errorMsg}</small>
                         <br />
-                        <input
-                            name="name"
-                            autoComplete="off"
-                            placeholder="Your full name"
-                            value={this.state.name.value}
-                            onChange={event => this.handleInputChange(event, this.validateName)}
-                        />
-                        <small>{this.state.name.errorMsg}</small>
+                        <div className="form-group">
+                            <input
+                                name="name"
+                                autoComplete="off"
+                                className="form-control"
+                                placeholder="Ditt fulla namn"
+                                value={this.state.name.value}
+                                onChange={event => this.handleInputChange(event, this.validateName)}
+                            />
+                        </div>
+                        <label>Email </label><small>{this.state.email.errorMsg}</small>
                         <br />
-                        <label>Email</label>
+                        <div className="form-group">
+                            <input
+                                name="email"
+                                autoComplete="off"
+                                className="form-control"
+                                placeholder="Email"
+                                value={this.state.email.value}
+                                onBlur={this.validateEmailAvailability}
+                                onChange={event => this.handleInputChange(event, this.validateEmail)}
+                            />
+                        </div>
+                        <label>Lösenord </label><small>{this.state.password.errorMsg}</small>
                         <br />
-                        <input
-                            name="email"
-                            autoComplete="off"
-                            placeholder="Your email"
-                            value={this.state.email.value}
-                            onBlur={this.validateEmailAvailability}
-                            onChange={event => this.handleInputChange(event, this.validateEmail)}
-                        />
-                        <small>{this.state.email.errorMsg}</small>
-                        <br />
-                        <label>Password</label>
-                        <br />
-                        <input
-                            name="password"
-                            type="password"
-                            autoComplete="off"
-                            placeholder="A password between 6 to 20 characters"
-                            value={this.state.password.value}
-                            onChange={event => this.handleInputChange(event, this.validatePassword)}
-                        />
-                        <small>{this.state.password.errorMsg}</small>
-                        <br />
-                        <input type="submit" value="Sign Up" disabled={this.isFormInvalid()} />
+                        <div className="form-group">
+                            <input
+                                name="password"
+                                type="password"
+                                className="form-control"
+                                autoComplete="off"
+                                placeholder="Lösenord mellan 6 till 20 tecken"
+                                value={this.state.password.value}
+                                onChange={event => this.handleInputChange(event, this.validatePassword)}
+                            />
+                        </div>
+                        <button className="btn btn-primary btn-sm" type="submit" value="Sign Up" disabled={this.isFormInvalid()}>Register</button>
                     </form>
                 </div>
             </div>
@@ -190,12 +183,12 @@ class Signup extends Component {
         if (name.length < NAME_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Name is too short (Minimum ${NAME_MIN_LENGTH} characters needed.)`
+                errorMsg: `(Minst ${NAME_MIN_LENGTH} tecken behövs.)`
             }
         } else if (name.length > NAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Name is too long (Maximum ${NAME_MAX_LENGTH} characters allowed.)`
+                errorMsg: `(Max ${NAME_MAX_LENGTH} tecken tillåtet.)`
             }
         } else {
             return {
@@ -209,12 +202,12 @@ class Signup extends Component {
         if (schoolName.length < SCHOOLNAME_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Name is too short (Minimum ${SCHOOLNAME_MIN_LENGTH} characters needed.)`
+                errorMsg: `(Minst ${SCHOOLNAME_MIN_LENGTH} tecken behövs.)`
             }
         } else if (schoolName.length > SCHOOLNAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Name is too long (Maximum ${SCHOOLNAME_MAX_LENGTH} characters allowed.)`
+                errorMsg: `(Max ${SCHOOLNAME_MAX_LENGTH} tecken tillåtet.)`
             }
         } else {
             return {
@@ -228,12 +221,12 @@ class Signup extends Component {
         if (schoolClassName.length < SCHOOLCLASSNAME_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Name is too short (Minimum ${SCHOOLCLASSNAME_MIN_LENGTH} characters needed.)`
+                errorMsg: `(Minst ${SCHOOLCLASSNAME_MIN_LENGTH} tecken behövs.)`
             }
         } else if (schoolClassName.length > SCHOOLCLASSNAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Name is too long (Maximum ${SCHOOLCLASSNAME_MAX_LENGTH} characters allowed.)`
+                errorMsg: `(Max ${SCHOOLCLASSNAME_MAX_LENGTH} tecken tillåtet.)`
             }
         } else {
             return {
@@ -247,7 +240,7 @@ class Signup extends Component {
         if (!email) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Email may not be empty'
+                errorMsg: '(Får inte vara tom)'
             }
         }
 
@@ -255,14 +248,14 @@ class Signup extends Component {
         if (!EMAIL_REGEX.test(email)) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Email not valid'
+                errorMsg: '(Inte en giltig emailadress)'
             }
         }
 
         if (email.length > EMAIL_MAX_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters allowed)`
+                errorMsg: `(Max ${EMAIL_MAX_LENGTH} tecken tillåtet)`
             }
         }
 
@@ -310,7 +303,7 @@ class Signup extends Component {
                         email: {
                             value: emailValue,
                             validateStatus: 'error',
-                            errorMsg: 'This Email is already registered'
+                            errorMsg: 'Emailen är redan registrerad'
                         }
                     });
                 }
@@ -330,12 +323,12 @@ class Signup extends Component {
         if (password.length < PASSWORD_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`
+                errorMsg: `(Minst ${PASSWORD_MIN_LENGTH} tecken behövs.)`
             }
         } else if (password.length > PASSWORD_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`
+                errorMsg: `(Max ${PASSWORD_MAX_LENGTH} tecken tillåtet.)`
             }
         } else {
             return {

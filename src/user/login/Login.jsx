@@ -7,19 +7,15 @@ class Login extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errorText: ""
     };
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value });
-  }
-
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value });
+  handleInputChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
@@ -35,34 +31,52 @@ class Login extends Component {
       })
       .catch(error => {
         if (error.status === 401) {
-          console.log("Fel email eller lösenord");
+          this.setState({ errorText: "Fel användarnamn eller lösenord" });
+          console.log(error);
         } else {
-          console.log("Något gick tokigt, prova igen");
+          this.setState({ errorText: "Något gick tokigt, prova igen" });
+          console.log(error);
         }
       });
   }
 
   render() {
     return (
-      <div className="container">
-        <form onSubmit={event => this.handleSubmit(event)}>
-          <input
-            type="text"
-            name="email"
-            onChange={this.handleEmailChange}
-            value={this.state.email}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            name="password"
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-            placeholder="Password"
-          />
-          <input type="submit" value="Logga in" />
-        </form>
-      </div>
+      <React.Fragment>
+        <div className="container">
+          <h1>Logga in</h1>
+          <form onSubmit={event => this.handleSubmit(event)}>
+            <div className="form-group">
+              <input
+                type="text"
+                name="email"
+                className="form-control"
+                onChange={this.handleInputChange}
+                value={this.state.email}
+                placeholder="Email"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                onChange={this.handleInputChange}
+                value={this.state.password}
+                placeholder="Lösenord"
+              />
+            </div>
+            <div className="form-group">
+              <button className="btn btn-primary" type="submit">Logga in</button>
+            </div>
+          </form>
+        </div>
+        {this.state.errorText &&
+          <div className="alert alert-danger" role="alert">
+            {this.state.errorText}
+          </div>
+        }
+      </React.Fragment>
     );
   }
 }
