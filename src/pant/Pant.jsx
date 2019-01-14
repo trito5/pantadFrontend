@@ -1,28 +1,64 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Pant extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isCollected: false
+    };
+    this.handleCollectPant = this.handleCollectPant.bind(this);
+    this.handleRegretCollect = this.handleRegretCollect.bind(this);
+  }
 
-    render() {
-        const { pant } = this.props;
+  handleCollectPant(id) {
+    this.props.collectPant(id);
+    this.setState(prevState => ({
+      isCollected: !prevState.isCollected
+    }));
+  }
 
-        let button;
+  handleRegretCollect(id) {
+    this.props.unCollectPant(id);
+    this.setState(prevState => ({
+      isCollected: !prevState.isCollected
+    }));
+  }
 
-        if (this.props.isSchoolclass) {
-            button = <button className="pantButton btn btn-success btn-sm" onClick={() => {
-                this.props.collectPant(this.props.pant.pantId)
-            }}>Hämta</button>;
-        }
+  render() {
+    const { pant, isSchoolclass } = this.props;
+    const { isCollected } = this.state;
 
-        return (
-            <div className="pantItem">
-                <div className="pantInfo">
-                    <p>Uppskattat värde: {pant.value}</p>
-                    <p>Adress: {pant.address}</p>
-                </div>
-                {button}
-            </div>
-        );
-    }
+    return (
+        <div className="pantItem">
+          <div className="pantInfo">
+            <p>Uppskattat värde: {pant.value}</p>
+            <p>Adress: {pant.address}</p>
+          </div>
+
+          {isSchoolclass && !isCollected && (
+            <button
+              className="pantButton btn btn-success"
+              onClick={() => {
+                this.handleCollectPant(pant.pantId);
+              }}
+            >
+              Hämta
+            </button>
+          )}
+
+          {isSchoolclass && isCollected && (
+            <button
+              className="pantButton btn btn-secondary"
+              onClick={() => {
+                this.handleRegretCollect(pant.pantId);
+              }}
+            >
+              Ångra
+            </button>
+          )}
+        </div>
+    );
+  }
 }
 
 export default Pant;

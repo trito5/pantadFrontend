@@ -20,16 +20,11 @@ class App extends Component {
       isAuthenticated: false,
       isLoading: false,
       menuOpen: false,
-      coords: {
-        lat: 49.33,
-        lng: 18.07
-      }
     }
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.getPosition = this.getPosition.bind(this);
   }
 
   toggleMenu() {
@@ -59,22 +54,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.getPosition);
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
     this.loadCurrentUser();
   }
 
-  getPosition(position) {
-    this.setState({
-      coords: {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
-    });
-  }
 
   handleLogout(redirectTo = "/") {
     localStorage.removeItem(ACCESS_TOKEN);
@@ -91,9 +73,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoading } = this.state;
-
-    if (isLoading) {
+    if (this.state.isLoading) {
       return <p>Loading...</p>;
     }
 
@@ -113,7 +93,6 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={StartPage} />
-          <div className="mainContent">
             <Route
               path="/login"
               render={props => <Login onLogin={this.handleLogin} {...props} />}
@@ -127,12 +106,8 @@ class App extends Component {
               render={() => <Signup regAsSchool={true} />}
             />
             <Route
-              path="/pantMap"
+              path="/pant"
               render={() => <PantLista map={true} center={this.state.coords} currentUser={this.state.currentUser} />}
-            />
-            <Route
-              path="/pantList"
-              render={() => <PantLista map={false} currentUser={this.state.currentUser} />}
             />
             <PrivateRoute authenticated={this.state.isAuthenticated}
               path="/regpant"
@@ -141,7 +116,6 @@ class App extends Component {
               path="/minpant"
               component={Profile}
               currentUser={this.state.currentUser} />
-          </div>
         </Switch>
       </div>
     );

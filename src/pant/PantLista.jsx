@@ -3,6 +3,7 @@ import { getAllPant, collectPant } from "../util/APIUtils";
 import Pant from "./Pant";
 import SimpleMap from "../map/SimpleMap";
 import { unCollectPant } from "../util/APIUtils";
+import "./checkboxStyle.css";
 
 class PantLista extends Component {
   constructor() {
@@ -10,19 +11,46 @@ class PantLista extends Component {
     this.state = {
       isLoading: true,
       isSchool: false,
-      pantList: []
+      pantList: [],
+      viewAsMap: true,
+      coords: {
+        lat: 59.33,
+        lng: 18.07
+      }
     };
     this.loadPant = this.loadPant.bind(this);
     this.collectPant = this.collectPant.bind(this);
     this.unCollectPant = this.unCollectPant.bind(this);
+    this.toggleMap = this.toggleMap.bind(this);
+    this.getPosition = this.getPosition.bind(this);
   }
 
   componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getPosition);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
     this.loadPant();
   }
 
   componentWillUnmount() {
     this.setState({ pantList: null });
+  }
+
+  getPosition(position) {
+    this.setState({
+      coords: {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+    });
+  }
+
+  toggleMap(){
+    this.setState((prevState) => ({
+      viewAsMap: !prevState.viewAsMap
+    }));
   }
 
   loadPant() {
@@ -89,11 +117,24 @@ class PantLista extends Component {
 
     return (
       <React.Fragment>
-        {this.props.map &&
-          <div className="googleMap">
-            <SimpleMap unCollectPant={this.unCollectPant} collectPant={this.collectPant} pantLista={this.state.pantList} isSchoolclass={this.state.isSchool} />
+
+      <div className="cntr">
+        <div className="row press">
+          <input type="checkbox" onClick={this.toggleMap} id="unchecked" className="cbx hidden"/>
+          <label for="unchecked" className="lbl"></label>    
+        </div>
+      </div>
+
+        {this.state.viewAsMap &&
+          <div className="google-map">
+            <SimpleMap 
+              coords={this.state.coords}
+              unCollectPant={this.unCollectPant} 
+              collectPant={this.collectPant} 
+              pantLista={this.state.pantList} 
+              isSchoolclass={this.state.isSchool} />
           </div>}
-        {!this.props.map &&
+        {!this.state.viewAsMap &&
           <div className="mainContent">
             {allPant}
           </div>

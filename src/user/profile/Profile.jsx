@@ -118,7 +118,7 @@ class Profile extends Component {
         }
 
         return (
-            <div className="mainContent">
+            <div className="container">
                 {allPant}
             </div>
         );

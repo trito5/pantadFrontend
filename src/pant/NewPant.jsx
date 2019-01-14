@@ -102,7 +102,8 @@ class NewPant extends Component {
     }
     render() {
         return (
-            <div className="mainContent">
+            <div className="container">
+                <h1>Lägg upp pant</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <input required className="form-control" value={this.state.value} onChange={this.handleInputChange} name="value" placeholder="Värde*" />

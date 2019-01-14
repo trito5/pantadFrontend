@@ -9,7 +9,7 @@ class AppHeader extends React.Component {
                     <i className="fas fa-times main-menu-link"></i>
                 </div>
                 <nav className="main-menu">
-                    <Link className="main-menu-link" to="/pantMap" onClick={this.props.toggleMenu}>Pantlista</Link>
+                    <Link className="main-menu-link" to="/pant" onClick={this.props.toggleMenu}>Pantlista</Link>
                     {this.props.isAuthenticated &&
                         <React.Fragment>
                             <Link className="main-menu-link" to="/minpant" onClick={this.props.toggleMenu}>Min pant</Link>

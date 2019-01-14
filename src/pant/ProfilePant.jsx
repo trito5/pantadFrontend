@@ -5,20 +5,6 @@ class ProfilePant extends Component {
     render() {
         const { pant, isSchoolclass, unCollectPant, deletePant } = this.props;
 
-        let button;
-
-        console.log(pant);
-
-        if (isSchoolclass) {
-            button = <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
-                unCollectPant(pant.id)
-            }}>Ångra</button>;
-        } else {
-            button = <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
-                deletePant(pant.pantId)
-            }}>Ta bort</button>
-        }
-
         return (
             <div className="pantItem">
                 <div className="pantInfo">
@@ -30,7 +16,19 @@ class ProfilePant extends Component {
                     <p>Hämttid: {pant.collectTimeFrame}</p>
                     <p>Övrig info: {pant.collectInfo}</p>
                 </div>
-                {button}
+
+                {isSchoolclass && 
+                    <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
+                        unCollectPant(pant.id)
+                    }}>Ångra</button>
+                }
+
+                {!isSchoolclass && 
+                    <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
+                        deletePant(pant.pantId)
+                    }}>Ta bort</button> 
+                }
+
             </div>
         );
     }

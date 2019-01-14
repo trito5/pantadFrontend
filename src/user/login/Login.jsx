@@ -42,7 +42,6 @@ class Login extends Component {
 
   render() {
     return (
-      <React.Fragment>
         <div className="container">
           <h1>Logga in</h1>
           <form onSubmit={event => this.handleSubmit(event)}>
@@ -70,13 +69,13 @@ class Login extends Component {
               <button className="btn btn-primary" type="submit">Logga in</button>
             </div>
           </form>
-        </div>
+        
         {this.state.errorText &&
           <div className="alert alert-danger" role="alert">
             {this.state.errorText}
           </div>
         }
-      </React.Fragment>
+        </div>
     );
   }
 }
