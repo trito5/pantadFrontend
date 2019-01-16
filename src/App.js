@@ -19,7 +19,7 @@ class App extends Component {
       currentUser: null,
       isAuthenticated: false,
       isLoading: true,
-      menuOpen: false,
+      menuOpen: false
     }
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -57,6 +57,7 @@ class App extends Component {
 
   handleLogout(redirectTo = "/") {
     localStorage.removeItem(ACCESS_TOKEN);
+    this.toggleMenu();
     this.setState({
       currentUser: null,
       isAuthenticated: false

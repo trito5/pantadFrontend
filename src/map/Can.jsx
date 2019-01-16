@@ -42,9 +42,6 @@ class Can extends React.Component {
           onClick={this.toggleMoreInfo}
         >
           <i className={(this.props.isSchoolclass && !this.state.isCollected) ? "fas fa-map-marker-alt recycle-icon" : "fas fa-check recycle-icon"}></i>
-          {/* <span role="img" aria-label="recycle" className="recycle-icon"><i class="fas fa-check"></i>
-            ♻️
-          </span> */}
         </button>
         {this.state.toggleInfo && (
           <div className="moreInfoField">

@@ -31,7 +31,6 @@ body {
     max-width: 800px;
 }
 
-
 .mainContent {
     max-width: 700px;
     margin: 70px auto;
@@ -65,12 +64,25 @@ body {
     height: 35px;
 }
 
-.company-logo h1,img {
+.company-logo h1,
+img {
     cursor: pointer;
 }
 
 .menu-overlay.open {
     width: 60%;
+}
+
+.invisible-toggle-menu {
+    overflow: hidden;
+    display: block;
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
 }
 
 .menu-overlay {
@@ -82,7 +94,6 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    /* opacity: 0.9; */
     z-index: 2;
     transition: 0.5s ease;
 }
@@ -94,6 +105,7 @@ body {
 }
 
 .main-menu-link.fa-times {
+    z-index: 2;
     font-size: 1.6rem;
     color: #fff;
     position: absolute;
@@ -138,9 +150,9 @@ body {
     height: auto;
     text-align: center;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 43px -4px rgba(0,0,0,0.47);
-    -moz-box-shadow: 0px 0px 43px -4px rgba(0,0,0,0.47);
-    box-shadow: 0px 0px 43px -4px rgba(0,0,0,0.47);
+    -webkit-box-shadow: 0px 0px 43px -4px rgba(0, 0, 0, 0.47);
+    -moz-box-shadow: 0px 0px 43px -4px rgba(0, 0, 0, 0.47);
+    box-shadow: 0px 0px 43px -4px rgba(0, 0, 0, 0.47);
 }
 
 .moreInfoField p {
@@ -170,7 +182,11 @@ body {
     .menu-overlay.open {
         width: 35%;
     }
-    
+
+    .invisible-toggle-menu {
+        width: 65%;
+    }
+
 }
 
 @media screen and (max-width: 600px) {
@@ -182,4 +198,3 @@ body {
 .autocomplete-dropdown-container {
     position: absolute;
 }
-

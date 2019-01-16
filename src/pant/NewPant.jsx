@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { newPant, getGpsFromAddress } from "../util/APIUtils";
+import { newPant } from "../util/APIUtils";
+import {
+    COLLECTTIMEFRAME_MIN_LENGTH, COLLECTTIMEFRAME_MAX_LENGTH,
+    PANTVALUE_MIN_LENGTH, PANTVALUE_MAX_LENGTH
+} from "../constants";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
@@ -17,16 +21,15 @@ class NewPant extends Component {
             longitude: "",
             latitude: "",
             info: "",
-            collectTimeFrame: ""
+            collectTimeFrame: "",
+            addressError: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getCoords = this.getCoords.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
-        this.handleGpsFromOnlyAddress = this.handleGpsFromOnlyAddress.bind(this);
         this.register = this.register.bind(this);
     }
-
 
     handleSelect = address => {
         geocodeByAddress(address)
@@ -37,7 +40,6 @@ class NewPant extends Component {
                     postalCode: results[0].address_components[6].long_name,
                     city: results[0].address_components[3].long_name
                 });
-                console.log(results);
                 this.getCoords(results);
             })
             .catch(error => console.error('Error', error));
@@ -52,6 +54,10 @@ class NewPant extends Component {
             .catch(error => console.log(error))
     }
 
+    isFormInvalid() {
+        return !(this.state.addressForDB && this.state.collectTimeFrame && this.state.value);
+    }
+
     handleInputChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -60,23 +66,9 @@ class NewPant extends Component {
         this.setState({ address });
     };
 
-    handleGpsFromOnlyAddress() {
-        return getGpsFromAddress(this.state.address)
-            .then(response => {
-                this.setState({
-                    latitude: response.results[0].geometry.location.lat,
-                    longitude: response.results[0].geometry.location.lng
-                })
-            })
-    }
-
     handleSubmit(event) {
         event.preventDefault();
-        // this.handleGpsFromOnlyAddress()
-        //     .then(() => {
-        //         this.register();
-        //     })
-        //     .catch(error => { console.log(error) });
+
         this.register();
     }
 
@@ -153,14 +145,53 @@ class NewPant extends Component {
                     </div>
                     <br />
                     <div className="form-group">
-                        <input className="form-control" value={this.state.info} onChange={this.handleInputChange} name="info" placeholder="Portkod, trappor, övrigt" />
+                        <input className="form-control" value={this.state.info} onChange={this.handleInputChange} name="info" placeholder="Portkod, trappor, telefonnummer" />
                     </div>
                     <br />
-                    <button type="submit" className="btn btn-primary">Registrera</button>
+                    <button type="submit" className="btn btn-primary" disabled={this.isFormInvalid()}>Registrera</button>
                 </form>
             </div>
         );
     }
+
+    validatePantValue = (value) => {
+        if (value.length < PANTVALUE_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `(Minst ${PANTVALUE_MIN_LENGTH} tecken behövs.)`
+            }
+        } else if (value.length > PANTVALUE_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `(Max ${PANTVALUE_MAX_LENGTH} tecken tillåtet.)`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };
+        }
+    }
+
+    validateCollectTimeFrame = (collectTimeFrame) => {
+        if (collectTimeFrame.length < COLLECTTIMEFRAME_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `(Minst ${COLLECTTIMEFRAME_MIN_LENGTH} tecken behövs.)`
+            }
+        } else if (collectTimeFrame.length > COLLECTTIMEFRAME_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `(Max ${COLLECTTIMEFRAME_MAX_LENGTH} tecken tillåtet.)`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };
+        }
+    }
+
 }
 
 export default NewPant;

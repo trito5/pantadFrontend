@@ -117,8 +117,10 @@ class PantLista extends Component {
 
         <div className="cntr">
           <div className="row press">
+            <p>Karta</p>
             <input type="checkbox" onClick={this.toggleMap} id="unchecked" className="cbx hidden" />
             <label htmlFor="unchecked" className="lbl"></label>
+            <p>Lista</p>
           </div>
         </div>
 
