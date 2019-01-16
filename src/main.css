@@ -65,16 +65,8 @@ body {
     height: 35px;
 }
 
-.company-logo a {
-    display: inline;
-    margin-left: 10px;
-    margin-bottom: 0;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.company-logo i {
-    font-size: 28px;
+.company-logo h1,img {
+    cursor: pointer;
 }
 
 .menu-overlay.open {

@@ -37,6 +37,7 @@ class NewPant extends Component {
                     postalCode: results[0].address_components[6].long_name,
                     city: results[0].address_components[3].long_name
                 });
+                console.log(results);
                 this.getCoords(results);
             })
             .catch(error => console.error('Error', error));

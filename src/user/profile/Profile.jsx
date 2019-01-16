@@ -6,7 +6,7 @@ class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            isLoading: false,
+            isLoading: true,
             pantList: []
         }
         this.loadPant = this.loadPant.bind(this);
@@ -19,9 +19,6 @@ class Profile extends Component {
     }
 
     loadPant() {
-        this.setState({
-            isLoading: true
-        });
         if (this.props.currentUser.schoolclass) {
             getSchoolPant()
                 .then(response => {
@@ -119,6 +116,11 @@ class Profile extends Component {
 
         return (
             <div className="container">
+                {this.props.currentUser.schoolclass ?
+                    <h1>Pant att hämta</h1>
+                    :
+                    <h1>Min upplagda pant</h1>
+                }
                 {allPant}
             </div>
         );

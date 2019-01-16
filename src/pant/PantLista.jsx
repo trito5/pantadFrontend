@@ -47,16 +47,13 @@ class PantLista extends Component {
     });
   }
 
-  toggleMap(){
+  toggleMap() {
     this.setState((prevState) => ({
       viewAsMap: !prevState.viewAsMap
     }));
   }
 
   loadPant() {
-    this.setState({
-      isLoading: true
-    });
     getAllPant()
       .then(response => {
         this.setState({
@@ -118,24 +115,25 @@ class PantLista extends Component {
     return (
       <React.Fragment>
 
-      <div className="cntr">
-        <div className="row press">
-          <input type="checkbox" onClick={this.toggleMap} id="unchecked" className="cbx hidden"/>
-          <label for="unchecked" className="lbl"></label>    
+        <div className="cntr">
+          <div className="row press">
+            <input type="checkbox" onClick={this.toggleMap} id="unchecked" className="cbx hidden" />
+            <label htmlFor="unchecked" className="lbl"></label>
+          </div>
         </div>
-      </div>
 
-        {this.state.viewAsMap &&
+        {this.state.viewAsMap ?
           <div className="google-map">
-            <SimpleMap 
+            <SimpleMap
               coords={this.state.coords}
-              unCollectPant={this.unCollectPant} 
-              collectPant={this.collectPant} 
-              pantLista={this.state.pantList} 
+              unCollectPant={this.unCollectPant}
+              collectPant={this.collectPant}
+              pantLista={this.state.pantList}
               isSchoolclass={this.state.isSchool} />
-          </div>}
-        {!this.state.viewAsMap &&
+          </div>
+          :
           <div className="mainContent">
+            <h1>Pantlista</h1>
             {allPant}
           </div>
         }

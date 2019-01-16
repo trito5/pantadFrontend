@@ -18,7 +18,7 @@ class App extends Component {
     this.state = {
       currentUser: null,
       isAuthenticated: false,
-      isLoading: false,
+      isLoading: true,
       menuOpen: false,
     }
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
@@ -34,9 +34,6 @@ class App extends Component {
   }
 
   loadCurrentUser() {
-    this.setState({
-      isLoading: true
-    });
     getCurrentUser()
       .then(response => {
         this.setState({
@@ -93,29 +90,29 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={StartPage} />
-            <Route
-              path="/login"
-              render={props => <Login onLogin={this.handleLogin} {...props} />}
-            />
-            <Route
-              path="/signupUser"
-              render={() => <Signup regAsSchool={false} />}
-            />
-            <Route
-              path="/signupSchool"
-              render={() => <Signup regAsSchool={true} />}
-            />
-            <Route
-              path="/pant"
-              render={() => <PantLista map={true} center={this.state.coords} currentUser={this.state.currentUser} />}
-            />
-            <PrivateRoute authenticated={this.state.isAuthenticated}
-              path="/regpant"
-              component={NewPant} />
-            <PrivateRoute authenticated={this.state.isAuthenticated}
-              path="/minpant"
-              component={Profile}
-              currentUser={this.state.currentUser} />
+          <Route
+            path="/login"
+            render={props => <Login onLogin={this.handleLogin} {...props} />}
+          />
+          <Route
+            path="/signupUser"
+            render={() => <Signup regAsSchool={false} />}
+          />
+          <Route
+            path="/signupSchool"
+            render={() => <Signup regAsSchool={true} />}
+          />
+          <Route
+            path="/pant"
+            render={() => <PantLista currentUser={this.state.currentUser} />}
+          />
+          <PrivateRoute authenticated={this.state.isAuthenticated}
+            path="/regpant"
+            component={NewPant} />
+          <PrivateRoute authenticated={this.state.isAuthenticated}
+            path="/minpant"
+            component={Profile}
+            currentUser={this.state.currentUser} />
         </Switch>
       </div>
     );

@@ -22,7 +22,6 @@ class StartPage extends Component {
                         </video>
                     </div>
                     <p>Låt din lathet rädda miljön!</p>
-                    <button className="btn btn-success btn-lg" href="#">Happy Can</button>
                 </div>
             </div>
 

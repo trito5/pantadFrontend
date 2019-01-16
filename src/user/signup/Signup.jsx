@@ -118,7 +118,7 @@ class Signup extends Component {
                                         onChange={event => this.handleInputChange(event, this.validateSchoolName)}
                                     />
                                 </div>
-                                <label>Name på klass </label> <small>{this.state.schoolClassName.errorMsg}</small>
+                                <label>Namn på klass </label> <small>{this.state.schoolClassName.errorMsg}</small>
                                 <br />
                                 <div className="form-group">
                                     <input
