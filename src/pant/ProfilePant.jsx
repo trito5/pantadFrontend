@@ -4,7 +4,6 @@ class ProfilePant extends Component {
 
     render() {
         const { pant, isSchoolclass, unCollectPant, deletePant } = this.props;
-
         return (
             <div className="your-pant">
                 <div className="pantInfo">
@@ -22,9 +21,11 @@ class ProfilePant extends Component {
 
                 {isSchoolclass &&
                     <div className="pant-buttons">
-                        <button className="pantButton btn btn-success">Har hämtat</button>
+                        <button className="pantButton btn btn-success" onClick={() => {
+                        deletePant(pant.id)
+                    }}>Har hämtat</button>
                         <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
-                            unCollectPant(pant.id)
+                        unCollectPant(pant.id)
                         }}>Ångra</button>
                     </div>
                 }

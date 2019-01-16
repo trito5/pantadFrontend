@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSchoolPant, unCollectPant, deletePant, getUserPant } from "../../util/APIUtils";
+import { getSchoolPant, unCollectPant, deletePant, getUserPant, doneCollecting } from "../../util/APIUtils";
 import ProfilePant from "../../pant/ProfilePant";
 
 class Profile extends Component {
@@ -19,6 +19,9 @@ class Profile extends Component {
     }
 
     loadPant() {
+        this.setState({
+            isLoading: true
+        })
         if (this.props.currentUser.schoolclass) {
             getSchoolPant()
                 .then(response => {
@@ -94,6 +97,27 @@ class Profile extends Component {
             });
     }
 
+    handleDoneCollection(id) {
+        this.setState({
+            isLoading: true
+        });
+        doneCollecting(id)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    isLoading: false
+                });
+            })
+            .then(() => {
+                this.loadPant();
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    isLoading: false
+                });
+            });
+    }
 
     render() {
         const { isLoading, pantList } = this.state;

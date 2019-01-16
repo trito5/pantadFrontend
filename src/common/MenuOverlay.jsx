@@ -18,7 +18,9 @@ class AppHeader extends React.Component {
                         {this.props.isAuthenticated &&
                             <React.Fragment>
                                 <Link className="main-menu-link" to="/minpant" onClick={this.props.toggleMenu}>Min pant</Link>
-                                <Link className="main-menu-link" to="/regpant" onClick={this.props.toggleMenu}>Registera pant</Link>
+                                {!this.props.currentUser.schoolclass && 
+                                    <Link className="main-menu-link" to="/regpant" onClick={this.props.toggleMenu}>Registera pant</Link>
+                                }
                                 <Link className="main-menu-link" to="" onClick={() => this.props.onLogout()}>Logga ut</Link>
                             </React.Fragment>
                         }

@@ -63,6 +63,13 @@ export function getGpsFromAddress(address) {
     }, true);
 }
 
+export function doneCollecting(pantId) {
+    return request({
+        url: API_BASE_URL + "/pant/doneCollecting/" + pantId,
+        method: 'GET'
+    });
+}
+
 export function collectPant(pantId) {
     return request({
         url: API_BASE_URL + "/pant/collectedPant/" + pantId,
