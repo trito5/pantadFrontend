@@ -47,7 +47,7 @@
 
 .cntr {
   z-index: 1;
-  position: absolute;
+  position: fixed;
   top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);

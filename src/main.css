@@ -195,6 +195,18 @@ img {
     }
 }
 
+@media screen and (max-width: 575px) {
+    .jumbotron {
+        margin-top: 50px;
+    }
+}
+
 .autocomplete-dropdown-container {
     position: absolute;
+}
+
+.newpant-mandatory {
+    position: relative;
+    bottom: 12px;
+    color: #ccc;
 }
