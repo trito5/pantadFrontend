@@ -6,7 +6,7 @@ class ProfilePant extends Component {
         const { pant, isSchoolclass, unCollectPant, deletePant } = this.props;
 
         return (
-            <div className="pantItem">
+            <div className="your-pant">
                 <div className="pantInfo">
                     <p>Uppskattat värde: {pant.value}</p>
                     <p>Adress: {pant.address}, {pant.postalCode} {pant.city}</p>
@@ -21,12 +21,12 @@ class ProfilePant extends Component {
                 </div>
 
                 {isSchoolclass &&
-                    <React.Fragment>
-                        {/* <button className="pantButton btn btn-success">Har hämtat</button> */}
+                    <div className="pant-buttons">
+                        <button className="pantButton btn btn-success">Har hämtat</button>
                         <button className="pantButton btn btn-secondary btn-sm" onClick={() => {
                             unCollectPant(pant.id)
                         }}>Ångra</button>
-                    </React.Fragment>
+                    </div>
                 }
 
                 {!isSchoolclass &&

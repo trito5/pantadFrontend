@@ -5,6 +5,7 @@ body {
 
 .container {
     margin-top: 100px;
+    max-width: 700px;
 }
 
 .btn-success {
@@ -23,6 +24,15 @@ body {
 
 .start-page .jumbotron {
     background-color: #fff;
+}
+
+.start-page {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.start-page h1 {
+    margin-bottom: 25px;
 }
 
 .happy-can-video {
@@ -61,11 +71,12 @@ body {
 }
 
 .happy-can-logo {
-    height: 35px;
+    height: 40px;
+    margin-right: 5px;
 }
 
-.company-logo h1,
-img {
+.company-logo h1 {
+    margin: 0;
     cursor: pointer;
 }
 
@@ -137,6 +148,19 @@ img {
     grid-template-columns: 75% 20%;
     grid-column-gap: 5%;
     border-bottom: 1px solid #ccc;
+}
+
+.your-pant {
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ccc;
+}
+
+.pant-buttons {
+    width: 150px;
 }
 
 .pantInfo p {

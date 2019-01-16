@@ -4,7 +4,7 @@ class StartPage extends Component {
     state = {}
     render() {
         return (
-            <div className="start-page cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <div className="start-page">
                 <div className="jumbotron text-center">
                     <h1 className="display-4">Happy Can</h1>
                     <p className="lead">
