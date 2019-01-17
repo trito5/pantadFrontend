@@ -47,6 +47,14 @@ body {
     padding: 15px;
 }
 
+.container h1 {
+    margin-bottom: 20px;
+}
+
+.container label {
+    margin-bottom: 1px;
+}
+
 .header {
     position: fixed;
     display: flex;

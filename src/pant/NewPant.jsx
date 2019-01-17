@@ -143,11 +143,10 @@ class NewPant extends Component {
                     <div className="form-group">
                         <input required className="form-control" value={this.state.collectTimeFrame} onChange={this.handleInputChange} name="collectTimeFrame" placeholder="Hämttid*" />
                     </div>
-                    <small className="newpant-mandatory">* = obligatoriskt</small>
-                    <br />
                     <div className="form-group">
                         <input className="form-control" value={this.state.info} onChange={this.handleInputChange} name="info" placeholder="Portkod, trappor, telefonnummer" />
                     </div>
+                    <small className="newpant-mandatory">* = obligatoriskt</small>
                     <br />
                     <button type="submit" className="btn btn-primary" disabled={this.isFormInvalid()}>Registrera</button>
                 </form>
